@@ -134,12 +134,14 @@ select(Aspirantes, c("EDAD":"DISCAPACIDAD")) # Alternativa 3
 
 names(Iris)
 select(Iris, starts_with("Sepal"))
+
 iris_petal <- select(Iris, starts_with("Petal"))
 iris_petal
 
 # ends_with()
 
 names(Aspirantes)
+
 select(Aspirantes, ends_with("CIU_NAC"))
 Asp_naci <- select(Aspirantes, ends_with("CIU_NAC"))
 Asp_naci
@@ -151,7 +153,7 @@ Nacimiento <- select(Aspirantes, contains("NAC"))
 Nacimiento
 
 # matches() 
-names(iris)
+names(Iris)
 select(Iris, matches("gth$")) # Selecciona aquellos nombres que finalizan con "gth"
 select(Iris, matches("^Spe")) # Finaliza a quellos nombres que inician con "Spe"
 select(iris, matches("^Spe"), matches("gth$")) # Combina los dos anteriores
@@ -159,10 +161,12 @@ select(iris, matches("^Spe"), matches("gth$")) # Combina los dos anteriores
 # http://edrub.in/CheatSheets/cheatSheetStringr.pdf
 # https://www.rstudio.com/resources/cheatsheets/ 
 
-# any_of()
+# one_of()
 names(Aspirantes)
 variables <- c("YEAR", "SEMESTRE", "EDAD", "ADMITIDO", "ADMITIDO")
+
 select(Aspirantes, one_of(variables))
+
 Aspi_var <- select(Aspirantes, one_of(variables))
 Aspi_var
 View(Aspi_var) # Ver en una pestaña diferente
@@ -179,6 +183,7 @@ select(nuevo, num_range("X", c(2:4)))
 # everything()
 names(Iris)
 select(Iris, everything()) # Seleccionar el mismo conjunto
+
 select(iris, c(Species, Petal.Width), everything()) # reubicar variables
 
 #######################################-
@@ -230,8 +235,9 @@ View(Cambio)
 
 # Cambio de nombres de variables con la base de R
 
-# names(Aspirantes)[c(3, 5, 10, 18)] <- c('DEPARTAMENTO', 'MUNICIPIO', 'GENERO', 'AREA')
-# Aspirantes
+names(Aspirantes)[c(3, 5, 10, 18)] <- c('DEPARTAMENTO', 'MUNICIPIO', 'GENERO', 'AREA')
+Aspirantes
+
 
 # Verbo 3 - REUBICAR ----
 
@@ -250,7 +256,7 @@ relocate(Aspirantes, c("NIVEL"))
 relocate(Aspirantes, c(19))
 
 # Más de una variable
-relocate(Aspirantes, c(NIVEL, SEXO, ADMITIDO))
+relocate(Aspirantes, c(SEXO, NIVEL, ADMITIDO))
 relocate(Aspirantes, c("NIVEL", "SEXO", "ADMITIDO"))
 relocate(Aspirantes, c(19, 10, 16))
 
@@ -266,7 +272,7 @@ relocate(Aspirantes, -c(19, 10, 16))
 names(Aspirantes)
 
 # Una variable
-relocate(Aspirantes, NIVEL, .before = EDAD)
+View(relocate(Aspirantes, NIVEL, .before = EDAD))
 relocate(Aspirantes, c(NIVEL), .before = c(EDAD))
 relocate(Aspirantes, c(19), .before = c(10))
 
@@ -279,7 +285,7 @@ View(Asp_Reu1)
 
 # Ubicar en la última comuna
 
-relocate(Aspirantes, NIVEL, .after = last_col())
+relocate(Aspirantes, YEAR, .after = last_col())
 relocate(Aspirantes, c(ADMITIDO, NIVEL), .before = last_col())
 View(relocate(Aspirantes, c(ADMITIDO, NIVEL), .before = last_col()))
 # relocate(Aspirantes, -c(ADMITIDO, NIVEL), .before = last_col())
@@ -297,7 +303,7 @@ relocate(Aspirantes, c(ADMI = ADMITIDO, NIV = NIVEL), .before = EDAD)
 names(Aspirantes)
 
 # Una variable
-relocate(Aspirantes, NIVEL, .after = EDAD)
+View(relocate(Aspirantes, NIVEL, .after = EDAD))
 relocate(Aspirantes, c(NIVEL), .after = c(EDAD))
 relocate(Aspirantes, c(19), .after = c(9))
 
@@ -311,6 +317,8 @@ Asp_Reu2
 # Función where
 
 relocate(Aspirantes, where(is.numeric))
+
+relocate(Aspirantes, where(is.character))
 relocate(Aspirantes, where(is.numeric), .after = where(is.character))
 
 # Ver más posibilidades en

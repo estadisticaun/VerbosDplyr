@@ -12,6 +12,7 @@ View(installed.packages()) # con mayor detalle
 search()
 
 # Total de funciones de un paquete de R
+library(ggplot2)
 
 lsf.str("package:dplyr") 
 
@@ -21,5 +22,8 @@ View(funciones)
 
 # En qué paquete se  encuentra una función
 
-find("mutate")
+find("select")
+git status
+
+
 find("filter")
